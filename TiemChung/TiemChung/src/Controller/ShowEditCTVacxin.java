@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.BO.CTVacxinBO;
 import Model.BO.VacxinBO;
@@ -31,13 +32,17 @@ public class ShowEditCTVacxin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("nguoidung") == null){
+			response.sendRedirect("Home.jsp");
+			return;
+		}
 		try{
 			VacxinBO vacxinBO = new VacxinBO();
 			request.setAttribute("vacxin",vacxinBO.getVacxin());
 			CTVacxinBO ctVacxinBO = new CTVacxinBO();
-			System.out.println("3232");
 			int malonhap= Integer.parseInt(request.getParameter("malonhap"));
-			System.out.println("xuong hom roi");
 			request.setAttribute("ct1vacxin", ctVacxinBO.get1CTVacxin(malonhap));
 			
 			

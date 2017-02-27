@@ -40,6 +40,7 @@ public class VacxinDAO {
 			int tuoiToiThieu = rs.getInt("TuoiToiThieu");
 			int tuoiToiDa = rs.getInt("TuoiToiDa");
 			int soMui = rs.getInt("SoMui");
+			
 			Vacxin v = new Vacxin(maVacxin, tenVacxin, maLoaiVacxin, tuoiToiThieu, tuoiToiDa, soMui);
 			ds.add(v);
 
@@ -48,7 +49,30 @@ public class VacxinDAO {
 		cmd.close();
 		return ds;
 	}
+	public ArrayList<Vacxin> getVacxin1() throws Exception {
+		KetNoi();
+		String sql = "select Vacxin.*,LoaiVacxin.TenLoaiVacxin from Vacxin, LoaiVacxin where Vacxin.MaLoaiVacxin = LoaiVacxin.MaLoaiVacxin";
+		 cmd = cn.prepareStatement(sql);
+		ResultSet rs = cmd.executeQuery();
 
+		while (rs.next()) {
+
+			int maVacxin = rs.getInt("MaVacxin");
+			String tenVacxin = rs.getString("TenVacxin");
+			int maLoaiVacxin = rs.getInt("MaLoaiVacxin");
+			int tuoiToiThieu = rs.getInt("TuoiToiThieu");
+			int tuoiToiDa = rs.getInt("TuoiToiDa");
+			int soMui = rs.getInt("SoMui");
+			String tenLoaiVacxin = rs.getString("TenLoaiVacxin");
+			Vacxin v = new Vacxin(maVacxin, tenVacxin, maLoaiVacxin, tuoiToiThieu, tuoiToiDa, soMui);
+			v.setTenLoaiVacxin(tenLoaiVacxin);
+			ds.add(v);
+
+		}
+		rs.close();
+		cmd.close();
+		return ds;
+	}
 	public boolean kiemTraTen(String tenvacxin) throws Exception {
 		KetNoi();
 		String sql = "select TenVacxin from Vacxin ";
@@ -201,6 +225,7 @@ public class VacxinDAO {
 			somui= rs.getInt("SoMui");
 		}
 		return somui;
+		
 	}
 	
 }

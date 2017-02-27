@@ -28,6 +28,7 @@ public class LogoutServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		session.removeAttribute("nguoidung");
 		response.sendRedirect("Home.jsp");

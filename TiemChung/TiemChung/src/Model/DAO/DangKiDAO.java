@@ -4,14 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
-import Model.Bean.LichDatTiem;
 
 
 
 public class DangKiDAO {
-	private static final String DateTime = null;
 	String url = "jdbc:sqlserver://SNAIL\\SQLEXPRESS:1433;databaseName=FPT";
 	String userName = "sa";
 	String password = "12345678";
@@ -48,10 +45,9 @@ public class DangKiDAO {
 	}
 	public int getSoLuongVacxinHienCo(int maVacxin) throws Exception{
 		KetNoi();
-		String query = "select Soluong from View_4 where MaVacxin = ?";
+		String query = "select Sum(SoLuongConLai) as SoLuong from CTVacXin where MaVacxin='"+maVacxin+"' AND HanSuDung>=GETDATE()";
 		int soLuong = 0;
 		PreparedStatement ps = cn.prepareStatement(query);
-		ps.setInt(1,maVacxin);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			soLuong = rs.getInt("SoLuong");
@@ -62,8 +58,8 @@ public class DangKiDAO {
 	
 	public int getLichDat(int makh)throws Exception{
 		KetNoi();
-		String ngayhientai =DateTime.toString();
-		String sql="select MaVacxin from DangKi where NgayDat='"+ngayhientai+"' and TrangThai='0' and MaKH='"+makh+"'";
+		
+		String sql="select MaVacxin from DangKi where day(NgayDat)=day(GETDATE()) and MONTH(NgayDat)=MONTH(GETDATE()) and YEAR(NgayDat)=YEAR(GETDATE()) AND TrangThai='0' and MaKH='"+makh+"'";
 		PreparedStatement cmd = cn.prepareStatement(sql);
 		ResultSet rs= cmd.executeQuery();
 		int mavacxin= 0;

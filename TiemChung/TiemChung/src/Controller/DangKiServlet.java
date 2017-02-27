@@ -76,7 +76,7 @@ public class DangKiServlet extends HttpServlet {
 				listVacxin = vacxinBO.timKiemVacxin1(Integer.parseInt(tuoi), Integer.parseInt(maLoaiVacxin),null);
 			}
 			else{
-				listVacxin = vacxinBO.getVacxin();
+				listVacxin = vacxinBO.getVacxin1();
 			}
 			
 			DangKiBO dangKiBO = new DangKiBO();
@@ -108,8 +108,10 @@ public class DangKiServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+				
 				int total_page = (int) Math.ceil(listVacxin.size()/2.0);
 				request.setAttribute("total_page", total_page);
+				
 				request.setAttribute("listLoaiVacxin", listLoaiVacxin);
 				request.setAttribute("listVacxin", listVacxin);
 				RequestDispatcher rd=request.getRequestDispatcher("DangKi.jsp");

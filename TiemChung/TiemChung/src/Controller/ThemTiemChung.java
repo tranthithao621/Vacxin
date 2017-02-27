@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.BO.CTVacxinBO;
 import Model.BO.KhachHangBO;
@@ -37,6 +38,12 @@ public class ThemTiemChung extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("nguoidung") == null){
+			response.sendRedirect("Home.jsp");
+			return;
+		}
 		try{
 			VacxinBO vacxinBO = new VacxinBO(); 
 			request.setCharacterEncoding("UTF-8");
@@ -49,7 +56,7 @@ public class ThemTiemChung extends HttpServlet {
 			String lantiem = request.getParameter("lantiem");
 			String ghichu= request.getParameter("ghichu");
 			if("".equals(makhachhang)!=true && "".equals( mavacxin)!=true){
-				if(vacxinBO.somui(Integer.parseInt(mavacxin))<	Integer.parseInt(lantiem)){
+				if(vacxinBO.somui(Integer.parseInt(mavacxin)) <	Integer.parseInt(lantiem)){
 					request.setAttribute("loi", "Khách hàng đả tiêm đủ số lượng của vacxin này");
 
 					KhachHangBO kh= new KhachHangBO();			
@@ -75,13 +82,11 @@ public class ThemTiemChung extends HttpServlet {
 				if("".equals(makhachhang)){
 					request.setAttribute("makhachhang", " Vui lòng chọn khách hàng");
 					
-				}
-				if( "".equals(xuatxu)|| " ".equals(xuatxu) ){
+				}if( "".equals(xuatxu)|| " ".equals(xuatxu) ){
 					request.setAttribute("xuatxu", "Vui lòng chọn xuất xứ");
 				}if(xuatxu==null){
 					request.setAttribute("xuatxu", "Vacxin này đả hết");
-				}
-				if("".equals(ngaytaitiem)){
+				}if("".equals(ngaytaitiem)){
 					
 					request.setAttribute("ngaytaitiem", " Vui lòng chọn ngày tái tiêm");
 				}
@@ -105,7 +110,10 @@ public class ThemTiemChung extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("Quanlytiemchung.jsp");
 			rd.forward(request, response);
 		}catch (Exception tt){
-			response.getWriter().println("<html><body>"+ tt.getMessage()+"</body></html>");
+			request.setAttribute("loi", "Hôm nay bạn đã tiêm Vacxin này rồi!!");
+			//response.getWriter().println("<html><body>"+ tt.getMessage()+"</body></html>");
+			RequestDispatcher rd=request.getRequestDispatcher("QuanLyTiemChungServlet");
+			rd.forward(request, response);
 			
 		}
 	}

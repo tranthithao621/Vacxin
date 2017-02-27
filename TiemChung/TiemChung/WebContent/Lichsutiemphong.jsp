@@ -28,14 +28,22 @@
 			<div class="container-fluid">
 
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="">Trang chủ</a></li>
+					<li class="active"><a href="Home.jsp">Trang chủ</a></li>
 					<li><a href="ThemLoaiVacxinServlet">Loại Vacxin</a></li>
 					<li class=""><a href="ShowListVacxin">Vacxin</a></li>
 					<li class=""><a href="ShowListCTVacxin">CTVacxin</a></li>
 					<li class=""><a href="KhachHangServlet">Quản lý khách hàng</a></li>
 					<li class=""><a href="QuanLyTiemChungServlet">Quản lý tiêm
 							chủng</a></li>
-					<li class="dropdown"><a href="#">Thống Kê-Báo Cáo</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Thống kê - Báo cáo <span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="thongkeSV">Vacxin Đã Tiêm</a></li>
+							<li><a href="TonKhoSV">Vacxin Tồn Kho</a></li>
+							<li><a href="hethanSV">Vacxin Hết hạn</a></li>
+							<li><a href="nhieunhatSV">Vacxin Nhiều Nhất, Ít Nhất</a></li>
+						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#" data-toggle="modal" data-target="#dangKy"><span
@@ -45,7 +53,6 @@
 				</ul>
 			</div>
 			</nav>
-
 
 		</div>
 		<!-- content -->

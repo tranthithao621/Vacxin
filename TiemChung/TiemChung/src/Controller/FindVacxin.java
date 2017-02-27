@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.BO.VacxinBO;
 import Model.Bean.Vacxin;
@@ -32,11 +33,22 @@ public class FindVacxin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		if(session.getAttribute("nguoidung") == null){
+			response.sendRedirect("Home.jsp");
+			return;
+		}
 		try{
 			request.setCharacterEncoding("UTF-8");
 			VacxinBO vacxin = new VacxinBO();
-			String tenvacxin=request.getParameter("tenvacxin");
+			String tenvacxin = request.getParameter("tenvacxin");
 			ArrayList<Vacxin> ds =vacxin.timKiemVacxin(tenvacxin);
+			
+
+			int total_page = (int) Math.ceil(ds.size()/2.0);
+			request.setAttribute("total_page", total_page);
+			
 			request.setAttribute("vacxin", ds);
 			RequestDispatcher rd = request.getRequestDispatcher("ShowListVacxin.jsp");
 			rd.forward(request, response);

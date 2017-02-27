@@ -13,7 +13,7 @@ public class KhachHangDAO {
 	Connection cn = null;
 	public Connection getConection () throws Exception{
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        cn= DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=FPT;user=sa;password=12345678");
+        cn= DriverManager.getConnection("jdbc:sqlserver://SNAIL\\SQLEXPRESS:1433;databaseName=FPT;user=sa;password=12345678");
         return cn;
 	}
 	public ArrayList<KhachHang> getKhachHang()throws Exception{

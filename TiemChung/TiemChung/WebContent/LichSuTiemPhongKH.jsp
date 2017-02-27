@@ -77,7 +77,7 @@
 				
 					<div class="form-group" style="margin-top:25px ">
 		    				
-		    				<input type="search" class="form-control" id="search" placeholder="Tìm Kiếm" name="s">
+		    				<input type="search" class="form-control" id="search" placeholder="Nhập vào tên Vacxin" name="s">
 		 				 </div>
 	  				
 					<div style="margin-top:10px">

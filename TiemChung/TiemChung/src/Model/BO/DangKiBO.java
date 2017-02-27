@@ -20,4 +20,8 @@ public class DangKiBO {
 	public int getLichDat(int makh)throws Exception {
 		return dangKiDAO.getLichDat(makh);
 	}
+	
+	public int getMavacixn(int makh)throws Exception{
+		return dangKiDAO.getLichDat(makh);
+	}
 }

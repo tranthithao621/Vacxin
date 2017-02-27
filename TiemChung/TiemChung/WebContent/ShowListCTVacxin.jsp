@@ -22,104 +22,38 @@
 			<div class="container-fluid">
 
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="">Trang chủ</a></li>
+					<li class="active"><a href="Home.jsp">Trang chủ</a></li>
 					<li><a href="ThemLoaiVacxinServlet">Loại Vacxin</a></li>
 					<li class=""><a href="ShowListVacxin">Vacxin</a></li>
 					<li class=""><a href="ShowListCTVacxin">CTVacxin</a></li>
-					<li class=""><a  href="KhachHangServlet">Quản lý khách hàng</a></li>
-					<li class=""><a  href="QuanLyTiemChungServlet">Quản lý tiêm chủng</a></li>
-					<li class="dropdown"><a href="#">Thống Kê-Báo Cáo</a></li>
-
-
+					<li class=""><a href="KhachHangServlet">Quản lý khách hàng</a></li>
+					<li class=""><a href="QuanLyTiemChungServlet">Quản lý tiêm
+							chủng</a></li>
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Thống kê - Báo cáo
+				        <span class="caret"></span></a>
+				        <ul class="dropdown-menu">
+				        	<li><a href="thongkeSV">Vacxin Đã Tiêm</a></li>
+				          <li><a href="TonKhoSV">Vacxin Tồn Kho</a></li>
+				          <li><a href="hethanSV">Vacxin Hết hạn</a></li>
+				          <li><a href="nhieunhatSV">Vacxin Nhiều Nhất, Ít Nhất</a></li>
+				        </ul>
+				      </li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#" data-toggle="modal" data-target="#dangKy"><span
 							class="glyphicon glyphicon-user"></span> Admin</a></li>
 					<li><a href="#" data-toggle="modal" data-target="#dangnhap"><span
-							class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+							class="glyphicon glyphicon-log-in"></span> Log out</a></li>
 				</ul>
 			</div>
 			</nav>
 
-			<!-- Modal -->
-			<!-- Modal dang ky-->
-			<div class="modal fade" id="dangKy" role="dialog">
-				<div class="modal-dialog">
-
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Đăng ký</h4>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="input-group">
-									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-user"></i></span> <input id="email"
-										type="text" class="form-control" name="email"
-										placeholder="Email">
-								</div>
-								<div class="input-group" style="margin-top: 10px">
-									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-lock"></i></span> <input id="password"
-										type="password" class="form-control" name="password"
-										placeholder="Password">
-								</div>
-								<div style="margin-top: 10px" class="center">
-									<center>
-										<button type="submit" class="btn btn-primary">Đăng ký</button>
-									</center>
-
-								</div>
-							</form>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!-- Modal dang nhap-->
-			<div class="modal fade" id="dangnhap" role="dialog">
-				<div class="modal-dialog">
-
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Đăng nhập</h4>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="input-group">
-									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-user"></i></span> <input id="email"
-										type="text" class="form-control" name="email"
-										placeholder="Email">
-								</div>
-								<div class="input-group" style="margin-top: 10px">
-									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-lock"></i></span> <input id="password"
-										type="password" class="form-control" name="password"
-										placeholder="Password">
-								</div>
-								<div style="margin-top: 10px" class="center">
-									<center>
-										<button type="submit" class="btn btn-primary">Đăng
-											nhập</button>
-									</center>
-
-								</div>
-							</form>
-						</div>
-					</div>
-
-				</div>
-				</dit>
+			
 			</div>
 			<!-- content -->
 			<div class="container">
 				<form class="navbar-form navbar-right" action="FindCTVacxin"
-					method="post">
+					method="get">
 					<div class="input-group">
 						<input type="text" class="form-control"
 							placeholder="Nhập xuất xứ vacxin" name="xuatxu">
@@ -150,8 +84,27 @@
 					<tbody>
 						<%
 							ArrayList<CTVacxin> ds = (ArrayList<CTVacxin>) request.getAttribute("ctvacxin");
-							int n = ds.size();
-							for (int i = 0; i < n; i++) {
+							int total_page = Integer.parseInt(request.getAttribute("total_page").toString()); 
+					    	int curent_page;
+					    	int limit = 2;
+					    	int start ;
+					    	if(request.getParameter("page") != null){
+					    		curent_page = Integer.parseInt(request.getParameter("page").toString());
+					    		start = (curent_page - 1 ) * limit ;
+					    	}else{
+					    		curent_page = 0;
+					    		start = 0;
+					    	}
+					   
+					    	int max = start + limit;
+					    	
+					    	if(max > ds.size()){
+					    		max = ds.size();
+					    	}
+					    	
+					    	if(ds != null){
+					    		for(int i = start ;i< max;i++){
+						
 						%>
 						<tr>
 							<td><%=ds.get(i).getMaLoNhap()%></td>
@@ -160,14 +113,15 @@
 							<td><%=ds.get(i).getGiaBan()%></td>
 							<td><%=ds.get(i).getXuatXu()%></td>
 							<td><%=ds.get(i).getSoLuong()%></td>
-							<td><a
+							<td><a class="btn btn-primary"
 								href="ShowEditCTVacxin?malonhap=<%=ds.get(i).getMaLoNhap()%>">Sửa</a></td>
-							<td><a
+							<td><a class="btn btn-danger"
 								href="DeleteCTVacxin?mactvacxin=<%=ds.get(i).getMaLoNhap()%>">Xóa</a></td>
 
 						</tr>
 						<%
 							}
+					    	}
 						%>
 					
 				</table>
@@ -177,7 +131,28 @@
 				</form>
 
 			</div>
-
+			<center>
+		<%
+			if(total_page > 0){
+				%>
+					<ul class="pagination">
+						<li><a href="<%= request.getParameter("xuatxu") !=null?"FindCTVacxin?page=1&xuatxu="+request.getParameter("xuatxu"):"ShowListCTVacxin" %>">  << </a></li>
+							<%
+								for(int i = 0;i<total_page;i++){
+									%>
+										
+									    <li class="<%= curent_page == (i + 1)?"active":"" %>" ><a  href="<%= request.getParameter("xuatxu") !=null?"FindCTVacxin?page="+(i+1)+"&xuatxu="+request.getParameter("xuatxu"):"ShowListCTVacxin?page="+(i+1) %>"><%= i + 1 %></a></li>
+									    
+									<%
+								}
+							%>
+							<li><a href="<%= request.getParameter("xuatxu") !=null?"FindCTVacxin?page="+total_page+"&xuatxu="+request.getParameter("xuatxu"):"ShowListCTVacxin?page="+total_page %>">  >> </a></li>
+						</ul>
+				<%
+			}
+		%>
+			
+	</center>
 			<!-- footer -->
 
 			<footer class="container-fluid text-center"> <a
