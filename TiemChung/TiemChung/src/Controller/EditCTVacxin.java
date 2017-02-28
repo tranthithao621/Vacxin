@@ -33,12 +33,6 @@ public class EditCTVacxin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		if(session.getAttribute("nguoidung") == null){
-			response.sendRedirect("Home.jsp");
-			return;
-		}
 		try{
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
@@ -48,7 +42,7 @@ public class EditCTVacxin extends HttpServlet {
 			}
 			
 			SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
-			//HttpSession session = request.getSession();
+			HttpSession session = request.getSession();
 			CTVacxinBO ctVacxinBO = new CTVacxinBO();
 			int mavacxin =Integer.parseInt( request.getParameter("mavacxin"));
 			String giaban1= request.getParameter("giaban");
@@ -79,8 +73,8 @@ public class EditCTVacxin extends HttpServlet {
 				}
 				
 			}
-		RequestDispatcher rd = request.getRequestDispatcher("ShowEditCTVacxin");
-		rd.forward(request, response);
+		//	RequestDispatcher rd = request.getRequestDispatcher("ShowEditCTVacxin");
+			//rd.forward(request, response);
 		}catch(Exception tt){
 			response.getWriter().println("<html><body> Loi : "+tt.getMessage()+"</body><html>");
 		}

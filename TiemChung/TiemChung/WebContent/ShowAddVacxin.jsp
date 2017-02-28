@@ -21,51 +21,116 @@
 	<div>
 		<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
-
+			<div class="navbar-header"></div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="Home.jsp">Trang chủ</a></li>
+
+				<li class="active"><a href="">Trang chủ</a></li>
 				<li><a href="ThemLoaiVacxinServlet">Loại Vacxin</a></li>
 				<li class=""><a href="ShowListVacxin">Vacxin</a></li>
 				<li class=""><a href="ShowListCTVacxin">CTVacxin</a></li>
 				<li class=""><a href="KhachHangServlet">Quản lý khách hàng</a></li>
 				<li class=""><a href="QuanLyTiemChungServlet">Quản lý tiêm
 						chủng</a></li>
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Thống kê - Báo cáo <span
-						class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="thongkeSV">Vacxin Đã Tiêm</a></li>
-						<li><a href="TonKhoSV">Vacxin Tồn Kho</a></li>
-						<li><a href="hethanSV">Vacxin Hết hạn</a></li>
-						<li><a href="nhieunhatSV">Vacxin Nhiều Nhất, Ít Nhất</a></li>
-					</ul></li>
+				<li class="dropdown"><a href="#">Thống Kê-Báo Cáo</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" data-toggle="modal" data-target="#dangKy"><span
 						class="glyphicon glyphicon-user"></span> Admin</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#dangnhap"><span
-						class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+						class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 			</ul>
 		</div>
 		</nav>
 
+		<!-- Modal -->
+		<!-- Modal dang ky-->
+		<div class="modal fade" id="dangKy" role="dialog">
+			<div class="modal-dialog">
 
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Đăng ký</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-user"></i></span> <input id="email"
+									type="text" class="form-control" name="email"
+									placeholder="Email">
+							</div>
+							<div class="input-group" style="margin-top: 10px">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-lock"></i></span> <input id="password"
+									type="password" class="form-control" name="password"
+									placeholder="Password">
+							</div>
+							<div style="margin-top: 10px" class="center">
+								<center>
+									<button type="submit" class="btn btn-primary">Đăng ký</button>
+								</center>
+
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- Modal dang nhap-->
+		<div class="modal fade" id="dangnhap" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Đăng nhập</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="input-group">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-user"></i></span> <input id="email"
+									type="text" class="form-control" name="email"
+									placeholder="Email">
+							</div>
+							<div class="input-group" style="margin-top: 10px">
+								<span class="input-group-addon"><i
+									class="glyphicon glyphicon-lock"></i></span> <input id="password"
+									type="password" class="form-control" name="password"
+									placeholder="Password">
+							</div>
+							<div style="margin-top: 10px" class="center">
+								<center>
+									<button type="submit" class="btn btn-primary">Đăng
+										nhập</button>
+								</center>
+
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
 
 	<div class="container-fluid" style="margin-left: 10px">
-		<center>
-		<h2>Thêm Thông Tin Vacxin</h2>
-		</center>
-			
+		<div style="margin-left: 500px">
+			<h2>Thêm Thông Tin Vacxin</h2>
+		</div>
 		<div class="container">
 
 			<form action="AddVacxin" method="post">
-				<center >
+				<center style="margin-left: 300px">
 					<%
 						Vacxin v = (Vacxin) request.getAttribute("vacxin");
 					%>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 
 							<label for="email">Mã vacxin :</label>
 						</div>
@@ -76,7 +141,7 @@
 					</div>
 					<br>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 
 							<label for="email">Tên vacxin :</label>
 						</div>
@@ -96,7 +161,7 @@
 					</div>
 					<br>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 
 							<label for="email">Tên loại vacxin:</label>
 						</div>
@@ -125,7 +190,7 @@
 					<br>
 
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 
 							<label for="email">Tuổi tối thiểu:</label>
 						</div>
@@ -146,7 +211,7 @@
 					</div>
 					<br>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 
 							<label for="email">Tuổi tối đa :</label>
 						</div>
@@ -165,7 +230,7 @@
 					</div>
 					<br>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-2">
 
 							<label for="email">Số mũi :</label>
 						</div>
@@ -188,7 +253,8 @@
 						String thanhcong = (String) request.getAttribute("thanhcong");
 						if (thanhcong != null) {
 					%>
-					<center><h6><%=thanhcong%></h6></center>
+					<h6>
+						<%=thanhcong%></h6>
 					<%
 						}
 					%>
@@ -205,7 +271,7 @@
 
 
 
-</div>
+
 		</div>
 </body>
 </html>

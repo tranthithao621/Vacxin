@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Model.BO.LoaiVacxinBO;
 import Model.Bean.LoaiVacxin;
@@ -34,12 +33,6 @@ public class SuaLoaiVacxinServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		if(session.getAttribute("nguoidung") == null){
-			response.sendRedirect("Home.jsp");
-			return;
-		}
 		String maLoaiVacxin = request.getParameter("id");
 		LoaiVacxinBO loaiVacxinBO = new LoaiVacxinBO();
 		if(request.getParameter("sua") != null){

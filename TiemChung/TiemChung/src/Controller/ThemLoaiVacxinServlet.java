@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Model.BO.LoaiVacxinBO;
 import Model.Bean.LoaiVacxin;
@@ -38,51 +37,47 @@ public class ThemLoaiVacxinServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	    //response.setCharacterEncoding("UTF-8");
 	    //response.setContentType("text/html; charset=UTF-8");
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		if(session.getAttribute("nguoidung") == null){
-			response.sendRedirect("Home.jsp");
-			return;
-		}
 		LoaiVacxinBO loaiVacxinBO = new LoaiVacxinBO();
 		
-		if(request.getParameter("them") != null && request.getParameter("tenLoaiVacxin") != "" ){
+		if(request.getParameter("them") != null){
 			String tenLoaiVacxin = request.getParameter("tenLoaiVacxin");
 			try {
 				loaiVacxinBO.themLoaiVacxin(tenLoaiVacxin);
 			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("ThemLoaiVacxinServlet");
 			//RequestDispatcher rd=request.getRequestDispatcher("ThemLoaiVacxinServlet");
 			//rd.forward(request, response);
 		}else if(request.getParameter("s") != null){
 			ArrayList<LoaiVacxin> listLoaiVacxin;
 			try {
 				listLoaiVacxin = loaiVacxinBO.timKiemLoaiVacxin(request.getParameter("s"));
+				System.out.println(request.getParameter("s"));
 				request.setAttribute("listLoaiVacxin", listLoaiVacxin);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			RequestDispatcher rd=request.getRequestDispatcher("LoaiVacxin.jsp");
-			rd.forward(request, response);
+			}		
 		}else{
 			ArrayList<LoaiVacxin> listLoaiVacxin;
 			try {
 				listLoaiVacxin = loaiVacxinBO.getLoaiVacxin();
 				request.setAttribute("listLoaiVacxin", listLoaiVacxin);
 			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			System.out.println("c");
-			RequestDispatcher rd=request.getRequestDispatcher("LoaiVacxin.jsp");
-			rd.forward(request, response);
+			//RequestDispatcher rd=request.getRequestDispatcher("LoaiVacxin.jsp");
+			//rd.forward(request, response);
 		}
-
+		
+		RequestDispatcher rd=request.getRequestDispatcher("LoaiVacxin.jsp");
+		rd.forward(request, response);
 		
 	}
 

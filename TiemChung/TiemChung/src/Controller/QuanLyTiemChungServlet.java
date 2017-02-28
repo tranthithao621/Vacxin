@@ -9,9 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Model.BO.DangKiBO;
 import Model.BO.KhachHangBO;
 import Model.BO.VacxinBO;
 import Model.Bean.KhachHang;
@@ -36,12 +34,6 @@ public class QuanLyTiemChungServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		if(session.getAttribute("nguoidung") == null){
-			response.sendRedirect("Home.jsp");
-			return;
-		}
 		try{
 			Model.BO.VacxinBO vx = new VacxinBO();
 			KhachHangBO khachhang = new KhachHangBO();
@@ -51,8 +43,6 @@ public class QuanLyTiemChungServlet extends HttpServlet {
 			if(request.getParameter("makh")!=null)
 			{	String makh=request.getParameter("makh");
 				KhachHang nv1= khachhang.getKhachHangTheoMa(makh);
-				DangKiBO dk = new DangKiBO();
-				request.setAttribute("vacxin", dk.getMavacixn(Integer.parseInt(makh)));
 					request.setAttribute("kh",nv1);
 				
 				//System.out.println(lantiem);

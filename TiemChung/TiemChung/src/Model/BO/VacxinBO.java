@@ -45,7 +45,4 @@ public class VacxinBO {
 	public int somui(int mavacxin)throws Exception{
 		return v.SoMui(mavacxin);
 	}
-	public ArrayList<Vacxin> getVacxin1() throws Exception{
-		return v.getVacxin1();
-	}
 }

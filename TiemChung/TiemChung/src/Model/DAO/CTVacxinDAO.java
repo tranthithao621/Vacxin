@@ -53,14 +53,13 @@ public class CTVacxinDAO {
 	public int addCTVacxin(int mavacxin, String hansudung, int giaban, String xuatxu, int soluong) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		KetNoi();
-		String sql = "insert into CTVacxin (MaVacxin,HanSuDung,GiaBan,XuatXu,SoLuong,SoLuongConLai) " + "values (?,?,?,?,?,?)";
+		String sql = "insert into CTVacxin (MaVacxin,HanSuDung,GiaBan,XuatXu,SoLuong) " + "values (?,?,?,?,?)";
 		cmd = cn.prepareStatement(sql);
 		cmd.setInt(1, mavacxin);
 		cmd.setDate(2, new java.sql.Date(sdf.parse(hansudung).getTime()));
 		cmd.setInt(3, giaban);
 		cmd.setString(4, xuatxu);
 		cmd.setInt(5, soluong);
-		cmd.setInt(6, soluong);
 
 		return cmd.executeUpdate();
 	}
@@ -163,15 +162,11 @@ public class CTVacxinDAO {
 	public int updateSoLuong(int malonhap) throws Exception {
 		{
 			KetNoi();
-			String sql = "update CTVacXin set SoLuongConLai=SoLuongConLai-1 where  HanSuDung>GETDATE()-1 AND MaLoNhap ='"+malonhap+"'";
+			String sql = "update CTVacXin set SoLuong=SoLuong-1 where  HanSuDung>GETDATE()-1 AND MaLoNhap ='"+malonhap+"'";
 			cmd = cn.prepareStatement(sql);
 			return cmd.executeUpdate();
 		}
 	}
 	
-	/*public int ktTrungMa(int makh) throws Exception{
-		KetNoi();
-		String sql="selec";
-	}*/
 	
 }
